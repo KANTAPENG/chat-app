@@ -5,5 +5,9 @@ class Message < ApplicationRecord
   
   # バリデーション：送られてきたデータをチェックするもの
   # presence: true：データの中身が空では保存できない
-  validates :content, presence: true
+  validates :content, presence: true, unless: :was_attached?
+
+  def was_attached?
+    self.image.attached?
+  end
 end
